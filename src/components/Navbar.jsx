@@ -5,23 +5,33 @@ import Logo from "../static/logo.jpg";
 
 const Navbar = ({user}) => {
 
+    const logout = () => {
+        window.open("http://localhost:8000/auth/logout", "_self");
+    }
+
     return (
         <div className="navbar-container">
             <img src={Logo} alt="logo" className="navbar-logo"/>
             {
                 user ? (
             <ul className="navbar-links">
-                <li>
-                    <Link to='/events' className="navbar-link">Events</Link>
+                <li className="user-avatar">
+                    <img src={user.photos[0].value} alt="" className="avatar" />
                 </li>
-                <li>
-                    <Link to='/Agenda' className="navbar-link">Agenda</Link>
+                <li className="navbar-link navbar-name">
+                    {user.displayName}
                 </li>
-                <li>
-                    <Link to='/' className="navbar-link">Logout</Link>
+                <li className="navbar-link">
+                    <Link to='/events' className="links">Events</Link>
+                </li>
+                <li className="navbar-link">
+                    <Link to='/Agenda' className="links">Agenda</Link>
+                </li>
+                <li className="navbar-link" onClick={logout}>
+                    Logout
                 </li>
             </ul>
-            ) : (<Link></Link>)
+            ) : (<></>)
             }
         </div>
     )

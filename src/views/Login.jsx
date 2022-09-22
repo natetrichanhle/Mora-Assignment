@@ -1,11 +1,22 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 
 import Google from "../static/google.png"
 import Github from "../static/github.png"
 import Facebook from "../static/facebook.png"
 
 const Login = () => {
+
+const google = () => {
+    window.open("http://localhost:8000/auth/google/", "_self")
+}
+
+const github = () => {
+    window.open("http://localhost:8000/auth/github", "_self");
+};
+
+const facebook = () => {
+    window.open("http://localhost:8000/auth/facebook", "_self");
+};
 
     return (
         <div>
@@ -17,15 +28,15 @@ const Login = () => {
                 <div className="login">
                     <div className="wrapper">
                         <div className="left">
-                            <div className="loginButton google">
+                            <div className="loginButton google" onClick={google}>
                                 <img src={Google} alt="" className="icon" />
                                 Google
                             </div>
-                            <div className="loginButton facebook">
+                            <div className="loginButton facebook" onClick={facebook}>
                                 <img src={Facebook} alt="" className="icon" />
                                 Facebook
                             </div>
-                            <div className="loginButton github">
+                            <div className="loginButton github" onClick={github}>
                                 <img src={Github} alt="" className="icon" />
                                 Github
                             </div>

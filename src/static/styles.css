@@ -35,12 +35,41 @@
     font-size: 20px;
     padding: 10px 20px;
     text-decoration: none;
-    color: black;
+    color: #0d70f2;
     cursor: pointer;
+    font-weight: bold;
 }
 
-.navbar-link:hover {
+.links {
+    text-decoration: none;
     color: #0d70f2;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.navbar-link:hover, .links:hover {
+    color: black;
+}
+
+.navbar-name {
+    color: black;
+}
+
+.navbar-name:hover {
+    color: #0d70f2;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-avatar {
+    display: flex;
+    align-items: center;
 }
 
 /* LOGIN VIEW */
@@ -124,6 +153,7 @@
     align-items: center;
     font-weight: bold;
     margin-bottom: 20px;
+    cursor: pointer;
 }
 
 .google {
@@ -158,4 +188,13 @@ input {
     border: none;
     padding: 15px 20px;
     border-radius: 5px;
+}
+
+/* EVENTS VIEW */
+
+.events-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
 }
