@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 import Logo from "../static/logo.jpg";
 
-const Navbar = ({user}) => {
-
+const Navbar = (userDetails) => {
+    const user = userDetails.user;
     const logout = () => {
-        window.open("http://localhost:8000/auth/logout", "_self");
-    }
+		window.open("http://localhost:8000/auth/logout", "_self");
+	};
 
     return (
         <div className="navbar-container">
@@ -16,10 +16,10 @@ const Navbar = ({user}) => {
                 user ? (
             <ul className="navbar-links">
                 <li className="user-avatar">
-                    <img src={user.photos[0].value} alt="" className="avatar" />
+                    <img src={user.picture} alt="" className="avatar" />
                 </li>
                 <li className="navbar-link navbar-name">
-                    {user.displayName}
+                    {user.name}
                 </li>
                 <li className="navbar-link">
                     <Link to='/events' className="links">Events</Link>
