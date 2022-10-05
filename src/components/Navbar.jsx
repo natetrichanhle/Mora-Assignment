@@ -1,13 +1,24 @@
+import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Logo from "../static/logo.jpg";
 
 const Navbar = (userDetails) => {
+    const navigate = useNavigate();
     const user = userDetails.user;
     const logout = () => {
 		window.open("http://localhost:8000/auth/logout", "_self");
 	};
+
+    const userLogout = () => {
+        axios.get("http://localhost:8000/api/logout", {withCredentials: true})
+            .then(res => {
+                navigate("/");
+                console.log(res.data)
+            })
+            .catch(err => console.log(err))
+    }
 
     return (
         <div className="navbar-container">
@@ -15,9 +26,6 @@ const Navbar = (userDetails) => {
             {
                 user ? (
             <ul className="navbar-links">
-                <li className="user-avatar">
-                    <img src={user.picture} alt="" className="avatar" />
-                </li>
                 <li className="navbar-link navbar-name">
                     {user.name}
                 </li>
@@ -29,6 +37,9 @@ const Navbar = (userDetails) => {
                 </li>
                 <li className="navbar-link" onClick={logout}>
                     Logout
+                </li>
+                <li className="navbar-link" onClick={userLogout}>
+                    Logout2
                 </li>
             </ul>
             ) : (<></>)

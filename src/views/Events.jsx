@@ -1,9 +1,11 @@
 import React from "react";
 
 const Events = () => {
+
     return (
     <div>
-        <h1 className="events-header">Hello World!</h1>
+        <h1 className="events-header">Events</h1>
+        <button>Add an event</button>
     </div>
     )
 };

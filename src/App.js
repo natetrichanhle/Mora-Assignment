@@ -31,18 +31,27 @@ function App() {
     getUser();
   }, []);
 
+  useEffect (() => {
+    axios.get("http://localhost:8000/api/users/getloggedinuser", {withCredentials: true})
+        .then(res => {
+          setUser(res.data);
+          console.log(res.data);
+        })
+        .catch(err => console.log(err))
+  }, [])
+
   return (
     <div className="App">
-      <Navbar user={user} />
+      <Navbar user={user} setUser={setUser}/>
       <Routes>
         <Route
           exact
           path="/"
-          element={user ? <Navigate to="/events" /> : <Login />} />
+          element={user ? <Navigate to="/events" /> : <Login setUser={setUser}/>} />
         <Route 
           exact
           path="/signup"
-          element={<Signup />}
+          element={<Signup setUser={setUser}/>}
         />
         <Route
           exact

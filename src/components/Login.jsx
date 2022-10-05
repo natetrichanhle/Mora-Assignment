@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Google from "../static/google.png"
+import axios from "axios";
 
-const Login = () => {
+const Login = ({setUser}) => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -13,21 +15,25 @@ const Login = () => {
 		);
 	};
 
-    const loginUser = async (event) => {
+    const loginUser = (event) => {
         event.preventDefault();
-        const response = await fetch("http://localhost:8000/api/login", {
-            method: "POST",
+        axios.post("http://localhost:8000/api/login",
+        JSON.stringify({
+            email,
+            password,
+        }),
+        {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                email,
-                password,
-            }),
             withCredentials: true,
         })
-        const data = await response.json();
-        console.log(data)
+            .then(res => {
+                setUser(res.data.user)
+                navigate("events");
+                console.log(res);
+            })
+            .catch(err => console.log(err))
     }
 
     return (

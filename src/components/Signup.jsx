@@ -1,13 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Google from "../static/google.png"
 
-const Signup = (props) => {
+const Signup = (props, {setUser}) => {
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // const [confirmPassword, setConfirmPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     // const [errors, setErrors] = useState(false);
 
     const googleAuth = () => {
@@ -17,22 +18,27 @@ const Signup = (props) => {
 		);
 	};
 
-    const registerUser = async (event) => {
+    const registerUser = (event) => {
         event.preventDefault();
-        const response = await fetch("http://localhost:8000/api/register", {
-            method: "POST",
+        axios.post("http://localhost:8000/api/register", 
+        JSON.stringify({
+            username,
+            email,
+            password,
+            confirmPassword
+        }),
+        {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                username,
-                email,
-                password
-            }),
             withCredentials: true,
         })
-        const data = await response.json();
-        console.log(data)
+            .then(res => {
+                setUser(res.data.user)
+                navigate("");
+                console.log(res)
+            })
+            .catch(err => console.log(err))
     }
 
     return (
@@ -75,6 +81,13 @@ const Signup = (props) => {
                                     name="password"
                                     placeholder="Password"
                                     onChange={(e) => {setPassword(e.target.value)}}
+                                />
+                                <input
+                                    type="password"
+                                    value={confirmPassword}
+                                    name=""
+                                    placeholder="Confirm Password"
+                                    onChange={(e) => {setConfirmPassword(e.target.value)}}
                                 />
                                 <input
                                     type="submit" className="submit" placeholder="Log In"
